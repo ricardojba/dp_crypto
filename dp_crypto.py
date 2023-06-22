@@ -282,8 +282,8 @@ def mode_brutekey():
             url = urls[version]
             request = requests.Request('GET', url)
             request = request.prepare()
-            response = session.send(request, verify=False, proxies=getProxy(args.proxy))
-            if response.status_code == 500:
+            response = session.send(request, verify=False, allow_redirects=False, proxies=getProxy(args.proxy))
+            if response.status_code == 500 or response.status_code == 302:
                 continue
             else:
                 match = re.search(
